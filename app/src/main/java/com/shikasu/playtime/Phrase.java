@@ -11,17 +11,14 @@ public class Phrase {
     String pinyin = null;
     String english = null;
 
-    Phrase(String chinese) {
-        this.chinese = chinese;
-    }
+    Phrase(String chinese) { this.chinese = chinese; }
+
     Phrase(String chinese, String pinyin) {
         this.chinese = chinese;
         this.pinyin = pinyin;
     }
 
-    int size() {
-        return phrase.size();
-    }
+    int size() { return phrase.size(); }
 
     String getChinese() {
         String constructedChinese = "";
@@ -42,7 +39,5 @@ public class Phrase {
         return this.pinyin;
     }
 
-    String getEnglish() {
-        return this.english;
-    }
+    String getEnglish() { return this.english; }
 }

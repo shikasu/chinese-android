@@ -37,5 +37,4 @@ public class PhraseStore {
     List<Phrase> getPhrases(int size, int maxLength) {
        return null;
     }
-
 }

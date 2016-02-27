@@ -16,30 +16,19 @@ public class GameRoundState {
 
     // ACTIONS:
 
-    void incrementLengthDiscovered() {
-        mLengthDiscovered += 1;
-    }
+    void resetLengthDiscovered() { mLengthDiscovered = 0; }
 
-    void decreasePointsBy(int points) {
-        mPoints = Math.max(0, mPoints - points);
-    }
+    void incrementLengthDiscovered() { mLengthDiscovered += 1; }
+
+    void decreasePointsBy(int points) { mPoints = Math.max(0, mPoints - points); }
 
     // GETTERS
 
-    int lengthDiscovered() {
-        return mLengthDiscovered;
-    }
+    int lengthDiscovered() { return mLengthDiscovered; }
 
-    int lengthUndiscovered() {
-        return mPhrase.size() - mLengthDiscovered;
-    }
+    int lengthUndiscovered() { return mPhrase.size() - mLengthDiscovered; }
 
-    Phrase phrase() {
-        return mPhrase;
-    }
+    Phrase phrase() { return mPhrase; }
 
-    int points() {
-        return mPoints;
-    }
-
+    int points() { return mPoints; }
 }

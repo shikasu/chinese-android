@@ -36,6 +36,7 @@ public class GameRound {
             mState.incrementLengthDiscovered();
         } else {
             mState.decreasePointsBy(mMalusPoints);
+            mState.resetLengthDiscovered(); // TODO make configurable?
         }
     }
 
@@ -43,7 +44,5 @@ public class GameRound {
      *
      * @return The state of the game at the time of invocation
      */
-    GameRoundState state() {
-        return mState;
-    }
+    GameRoundState state() { return mState; }
 }
