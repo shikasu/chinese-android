@@ -9,7 +9,7 @@ public class GameRound {
     private int mMalusPoints;
 
     /**
-     * Starts a game with a given phrase with max number of points awarded
+     * Starts a GameRound with a given phrase with max number of points awarded
      * for perfect completion. malusPoints will be retrieved from points total
      * if player makes a mistake.
      * @param phrase
