@@ -29,6 +29,10 @@ public class Character {
         return this;
     }
 
+    public char chineseChar() {
+        return mChinese.charAt(0);
+    }
+
     public String chinese() {
         return mChinese;
     }

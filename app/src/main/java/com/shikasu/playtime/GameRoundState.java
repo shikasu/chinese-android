@@ -14,6 +14,18 @@ public class GameRoundState {
         this.mPoints = points;
     }
 
+    // ACTIONS:
+
+    void incrementLengthDiscovered() {
+        mLengthDiscovered += 1;
+    }
+
+    void decreasePointsBy(int points) {
+        mPoints = Math.max(0, mPoints - points);
+    }
+
+    // GETTERS
+
     int lengthDiscovered() {
         return mLengthDiscovered;
     }
@@ -29,4 +41,5 @@ public class GameRoundState {
     int points() {
         return mPoints;
     }
+
 }
