@@ -2,7 +2,6 @@ package com.shikasu.playtime;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.support.annotation.NonNull;
 
 /**
  * Created by jul on 2/27/16.
@@ -28,16 +27,24 @@ public class StatusBar {
         }
     }
 
-    // Action SETTERS
-    void points(int points) {
+    // Action SETTERS:
+
+    StatusBar points(int points) {
         mPoints = points;
         refresh();
+        return this;
     }
 
-    void time(int minutes, int seconds) {
-
+    StatusBar time(int minutes, int seconds) {
+        mMinutes = minutes;
+        mSeconds = seconds;
+        refresh();
+        return this;
     }
 
+    int difficulty() { return mDifficulty; }
     int points() { return mPoints; }
+    int timeMinutes() { return mMinutes; }
+    int timeSeconds() { return mSeconds; }
 
 }
