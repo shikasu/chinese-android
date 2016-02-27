@@ -43,12 +43,12 @@ public class Character {
 
     public String pinyin() {
         if (mPinyin == null) {
-            // fallback to return pinyin from tinypinyin
+            // fallback to return mPinyin from tinypinyin
             if (mChinese.length() > 1) {
-                Log.w(TAG, "Received a Character which chinese member is not of size 1 but " +
+                Log.w(TAG, "Received a Character which mChinese member is not of size 1 but " +
                         mChinese.length());
-                Log.w(TAG, "In case it is longer than 1, Will only convert to pinyin first character");
-                Log.w(TAG, "In case it is 0, the pinyin will be empty string too");
+                Log.w(TAG, "In case it is longer than 1, Will only convert to mPinyin first character");
+                Log.w(TAG, "In case it is 0, the mPinyin will be empty string too");
             } else if (mChinese.length() == 0) {
                 return "";
             }

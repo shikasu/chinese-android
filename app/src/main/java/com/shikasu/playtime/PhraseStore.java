@@ -1,7 +1,5 @@
 package com.shikasu.playtime;
 
-import android.support.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +12,7 @@ public class PhraseStore {
 
     Map<Integer, List<Phrase>> mPhraseByLengthMap;
 
-    PhraseStore() {
+    private PhraseStore() {
         mPhraseByLengthMap = new HashMap<>();
     }
 

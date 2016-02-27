@@ -30,7 +30,7 @@ public class GameRound {
         // Which index is selected for discovery?
         int index = mState.lengthDiscovered();
         // Does it match the character of the phrase at that index?
-        boolean matched = mPhrase.chinese.charAt(index) == c.chineseChar();
+        boolean matched = mPhrase.mChinese.charAt(index) == c.chineseChar();
 
         if (matched) {
             mState.incrementLengthDiscovered();
