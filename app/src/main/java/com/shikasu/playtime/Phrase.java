@@ -10,6 +10,10 @@ public class Phrase {
     String pinyin = null;
     String english = null;
 
+    int size() {
+        return phrase.size();
+    }
+
     String getChinese() {
         String constructedChinese = "";
         for (int i = 0; i < phrase.size(); i++) {
