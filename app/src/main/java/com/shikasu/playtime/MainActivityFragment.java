@@ -53,7 +53,7 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         mGridLayout = (GridLayout) view.findViewById(R.id.gridLayout);
-        //setRandomColorBackgroundForAllItems();
+        setRandomColorBackgroundForAllItems();
         return view;
     }
 

@@ -7,4 +7,6 @@
     <string name="action_editmode_background_color">Set background</string>
     <string name="action_editmode_background_image">Set image</string>
     <string name="action_editmode_text">Edit text</string>
+    <string name="default_char">我</string>
+    <string name="default_pinyin">wŏ</string>
 </resources>

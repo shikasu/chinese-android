@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -24,11 +25,14 @@ import java.util.Locale;
 /**
  * Created by jul on 10/07/15.
  */
-public class PlayItem extends TextView implements TextToSpeech.OnInitListener {
+public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListener {
 
     private int mEditMode; //change to int tracking action_editmode_* TODO
     private MediaPlayer mMediaPlayer;
     private TextToSpeech engine;
+
+    private TextView mChineseTextView;
+    private TextView mPinyinTextView;
 
     private static String TAG = PlayItem.class.getSimpleName();
 
@@ -53,7 +57,34 @@ public class PlayItem extends TextView implements TextToSpeech.OnInitListener {
         init();
     }
 
+    String chinese() {
+        if (mChineseTextView == null) return null;
+        return mChineseTextView.getText().toString();
+    }
+    void chinese(String chinese) {
+        if (mChineseTextView != null) {
+            mChineseTextView.setText(chinese);
+        }
+    }
+
+    String pinyin() {
+        if (mPinyinTextView == null) return null;
+        return mPinyinTextView.getText().toString();
+    }
+    void pinyin(String pinyin) {
+        if (mPinyinTextView != null) {
+            mPinyinTextView.setText(pinyin);
+        }
+    }
+
+    void inflateAndLoadElements() {
+        View view = inflate(getContext(), R.layout.tile, this);
+        mChineseTextView = (TextView) view.findViewById(R.id.chinese);
+        mPinyinTextView = (TextView) view.findViewById(R.id.pinyin);
+    }
+
     void init() {
+        inflateAndLoadElements();
         engine = new TextToSpeech(getContext(), this);
         setEditMode(R.id.action_editmode_none);
         int mSoundId = R.raw.ak47;
@@ -80,7 +111,7 @@ public class PlayItem extends TextView implements TextToSpeech.OnInitListener {
                         break;
                     case R.id.action_editmode_none:
                         //mMediaPlayer.start();
-                        engine.speak(getText().toString(), TextToSpeech.QUEUE_FLUSH, null, null);
+                        engine.speak(chinese(), TextToSpeech.QUEUE_FLUSH, null, null);
                         break;
                     case R.id.action_editmode_text:
                         showChangeTextDialog();
@@ -96,7 +127,7 @@ public class PlayItem extends TextView implements TextToSpeech.OnInitListener {
         builder.setTitle(R.string.change_text);
 
         final EditText input = new EditText(getContext());
-        input.append(getText());
+        input.append(chinese());
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         input.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
@@ -121,7 +152,7 @@ public class PlayItem extends TextView implements TextToSpeech.OnInitListener {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                setText(input.getText().toString());
+                chinese(input.getText().toString());
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
