@@ -18,7 +18,7 @@ import java.util.Random;
  */
 public class MainActivityFragment extends Fragment {
 
-    private final static String TAG = MainActivity.class.getSimpleName();
+    private final static String TAG = MainActivityFragment.class.getSimpleName();
     private GridLayout mGridLayout;
 
     public MainActivityFragment() {
