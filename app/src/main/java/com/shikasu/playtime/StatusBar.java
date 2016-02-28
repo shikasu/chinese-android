@@ -1,9 +1,6 @@
 package com.shikasu.playtime;
 
-import android.app.Activity;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 /**
  * Created by jul on 2/27/16.
@@ -16,25 +13,18 @@ public class StatusBar {
     private int mSeconds;
     private int mDifficulty;
     private int mGames;
-    private AppCompatActivity mActivity;
+    private ActionBar mActionBar;
 
     private final static String FORMAT = "diff %d - points: %d - games: %d";
 
-    // FIXME depend on the ActionBar itself
-    StatusBar(AppCompatActivity a) {
+    StatusBar(ActionBar a) {
         if (a == null) throw new NullPointerException("Do not pass null here");
-        mActivity = a;
+        mActionBar = a;
     }
 
     void refresh() {
-        ActionBar bar = mActivity.getSupportActionBar();
         String title = String.format(FORMAT, mDifficulty, mPoints, mGames);
-        if (bar != null) {
-            Log.d(TAG, "Setting actionbar title to" + title);
-            bar.setTitle(title);
-        } else {
-            Log.d(TAG, "Cannot set actionBar title, bar is null...");
-        }
+        mActionBar.setTitle(title);
     }
 
     // Action SETTERS:

@@ -86,8 +86,8 @@ public class MainActivityFragment extends Fragment {
     }
 
     void refreshStatusBar() {
-        // FIXME the activity passed will be changed to ActionBar
-        StatusBar statusBar = new StatusBar((AppCompatActivity)getActivity());
+        StatusBar statusBar = new StatusBar(
+                ((AppCompatActivity)getActivity()).getSupportActionBar());
         statusBar.points(mPointsTotal)
                 .games(mGames)
                 .difficulty(mDifficulty)
