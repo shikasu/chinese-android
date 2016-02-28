@@ -94,6 +94,14 @@ public class MainActivityFragment extends Fragment {
         statusBar.points(mPointsTotal).games(mGames).refresh();
     }
 
+    void showPinyin(boolean show) {
+        int count = mGridLayout.getChildCount();
+        for(int i = 0 ; i < count ; i++) {
+            PlayItem child = (PlayItem) mGridLayout.getChildAt(i);
+            child.showPinyin(show);
+        }
+    }
+
     void resetAllTiles() {
         int count = mGridLayout.getChildCount();
         for(int i = 0 ; i < count ; i++) {

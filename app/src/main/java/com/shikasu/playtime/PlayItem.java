@@ -93,6 +93,14 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
         }
     }
 
+    void showPinyin(boolean show) {
+        if (show) {
+            pinyin("");
+        } else {
+            pinyin(mCharacter.pinyin());
+        }
+    }
+
     void inflateAndLoadElements() {
         View view = inflate(getContext(), R.layout.tile, this);
         mChineseTextView = (TextView) view.findViewById(R.id.chinese);
