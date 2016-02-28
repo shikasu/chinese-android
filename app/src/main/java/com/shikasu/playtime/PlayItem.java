@@ -34,6 +34,8 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
     private TextView mChineseTextView;
     private TextView mPinyinTextView;
 
+    private Character mCharacter;
+
     private static String TAG = PlayItem.class.getSimpleName();
 
     public PlayItem(Context context) {
@@ -61,7 +63,8 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
         if (mChineseTextView == null) return null;
         return mChineseTextView.getText().toString();
     }
-    void chinese(String chinese) {
+
+    private void chinese(String chinese) {
         if (mChineseTextView != null) {
             mChineseTextView.setText(chinese);
         }
@@ -71,10 +74,18 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
         if (mPinyinTextView == null) return null;
         return mPinyinTextView.getText().toString();
     }
-    void pinyin(String pinyin) {
+
+    private void pinyin(String pinyin) {
         if (mPinyinTextView != null) {
             mPinyinTextView.setText(pinyin);
         }
+    }
+
+    Character character() { return mCharacter; }
+    void setCharacter(Character c) {
+        mCharacter = c;
+        chinese(c.chinese());
+        pinyin(c.pinyin());
     }
 
     void inflateAndLoadElements() {
@@ -111,7 +122,10 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
                         break;
                     case R.id.action_editmode_none:
                         //mMediaPlayer.start();
+                        if (mCharacter == null) break;
                         engine.speak(chinese(), TextToSpeech.QUEUE_FLUSH, null, null);
+                        // play
+                        boolean matched = MainActivityFragment.sFragment.play(PlayItem.this);
                         break;
                     case R.id.action_editmode_text:
                         showChangeTextDialog();
@@ -120,6 +134,14 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
                 }
             }
         });
+    }
+
+    void setPushed(boolean pushed) {
+        if (pushed) {
+            setBackgroundColor(Color.GREEN);
+        } else {
+            setBackgroundColor(Color.GRAY);
+        }
     }
 
     private void showChangeTextDialog() {

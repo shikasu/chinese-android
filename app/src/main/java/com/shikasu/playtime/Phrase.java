@@ -1,5 +1,6 @@
 package com.shikasu.playtime;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,20 +11,6 @@ public class Phrase {
     String mChinese;
     String mPinyin = null;
     String mEnglish = null;
-
-    Phrase(String chinese, String pinyin, String english) {
-        mChinese = chinese;
-        mPinyin = pinyin;
-        mEnglish = english;
-    }
-
-    Phrase(String chinese) {
-        this(chinese, null, null);
-    }
-
-    Phrase(String chinese, String pinyin) {
-        this(chinese, pinyin, null);
-    }
 
     static Phrase fromLine(String line, String delim) {
         String[] splitted = line.split(delim);
@@ -37,9 +24,31 @@ public class Phrase {
         return null;
     }
 
+    Phrase(String chinese, String pinyin, String english) {
+        mChinese = chinese;
+        mPinyin = pinyin;
+        mEnglish = english;
+        generateCharacterList(chinese);
+    }
+
+    Phrase(String chinese) {
+        this(chinese, null, null);
+    }
+
+    Phrase(String chinese, String pinyin) {
+        this(chinese, pinyin, null);
+    }
+
+    void generateCharacterList(String chinese) {
+        phrase = new ArrayList<>();
+        for (int i = 0; i < chinese.length(); i++) {
+            phrase.add(new Character().chinese(String.valueOf(chinese.charAt(i))));
+        }
+    }
+
     int size() { return phrase.size(); }
 
-    String getChinese() {
+    String chinese() {
         String constructedChinese = "";
         for (int i = 0; i < phrase.size(); i++) {
             constructedChinese += phrase.get(i).chinese();
@@ -47,7 +56,7 @@ public class Phrase {
         return constructedChinese;
     }
 
-    String getPinyin() {
+    String pinyin() {
         if (this.mPinyin == null) {
             String constructedPinyin = "";
             for (int i = 0; i < phrase.size(); i++) {
@@ -58,5 +67,5 @@ public class Phrase {
         return this.mPinyin;
     }
 
-    String getEnglish() { return this.mEnglish; }
+    String english() { return this.mEnglish; }
 }

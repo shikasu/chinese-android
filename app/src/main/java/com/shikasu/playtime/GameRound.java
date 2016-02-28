@@ -26,7 +26,7 @@ public class GameRound {
      * Play using the character c
      * @param c
      */
-    void play(Character c) {
+    boolean play(Character c) {
         // Which index is selected for discovery?
         int index = mState.lengthDiscovered();
         // Does it match the character of the phrase at that index?
@@ -38,6 +38,7 @@ public class GameRound {
             mState.decreasePointsBy(mMalusPoints);
             mState.resetLengthDiscovered(); // TODO make configurable?
         }
+        return matched;
     }
 
     /** Returns the state of the game at the time of invocation
@@ -45,4 +46,5 @@ public class GameRound {
      * @return The state of the game at the time of invocation
      */
     GameRoundState state() { return mState; }
+    Phrase phrase() { return mPhrase; }
 }

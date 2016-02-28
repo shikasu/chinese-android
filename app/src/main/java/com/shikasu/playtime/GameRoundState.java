@@ -26,7 +26,7 @@ public class GameRoundState {
 
     int lengthDiscovered() { return mLengthDiscovered; }
 
-    int lengthUndiscovered() { return mPhrase.size() - mLengthDiscovered; }
+    int lengthRemaining() { return mPhrase.size() - mLengthDiscovered; }
 
     Phrase phrase() { return mPhrase; }
 

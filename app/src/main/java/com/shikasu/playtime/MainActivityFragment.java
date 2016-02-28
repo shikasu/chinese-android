@@ -11,6 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -21,12 +24,21 @@ public class MainActivityFragment extends Fragment {
     private final static String TAG = MainActivityFragment.class.getSimpleName();
     private GridLayout mGridLayout;
 
+    // TODO move for speed optim
+    private PhraseStore mPhraseStore;
+    // FIXME (maybe) is static a good thing here?
+    static MainActivityFragment sFragment;
+
+    private GameRound mGameRound;
+
     public MainActivityFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sFragment = this;
+        mPhraseStore = new PhraseStore(getContext());
         setHasOptionsMenu(true);
     }
 
@@ -54,7 +66,47 @@ public class MainActivityFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         mGridLayout = (GridLayout) view.findViewById(R.id.gridLayout);
         setRandomColorBackgroundForAllItems();
+        triggerNewRound();
         return view;
+    }
+
+    public void triggerNewRound() {
+        mGameRound = new GameRound(mPhraseStore.getPhrase(), 100, 20);
+        refresh(mGameRound);
+    }
+
+    boolean play(PlayItem playItem) {
+       boolean matched = mGameRound.play(playItem.character());
+        if (matched) {
+            playItem.setPushed(true);
+            if (mGameRound.state().lengthRemaining() == 0) {
+                resetAllTilesColor();
+                triggerNewRound();
+            }
+        } else {
+            resetAllTilesColor();
+        }
+        return matched;
+    }
+
+    void resetAllTilesColor() {
+        int count = mGridLayout.getChildCount();
+        for(int i = 0 ; i < count ; i++) {
+            PlayItem child = (PlayItem) mGridLayout.getChildAt(i);
+            child.setBackgroundColor(Color.GRAY);
+        }
+    }
+
+    void refresh(GameRound gameRound) {
+        int count = mGridLayout.getChildCount();
+        List<Character> phrase = gameRound.phrase().phrase;
+        List<Character> shuffledPhrase = new ArrayList<Character>(phrase);
+
+        Collections.shuffle(shuffledPhrase);
+        for(int i = 0 ; i < shuffledPhrase.size() ; i++) {
+            PlayItem playItem = (PlayItem) mGridLayout.getChildAt(i);
+            playItem.setCharacter(shuffledPhrase.get(i));
+        }
     }
 
     @Override
