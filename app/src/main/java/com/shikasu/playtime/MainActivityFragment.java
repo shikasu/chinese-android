@@ -150,6 +150,10 @@ public class MainActivityFragment extends Fragment {
         new AlertDialog.Builder(getContext()).setView(myNumberPicker).show();
     }
 
+    void showSetPhrasefileDialog() {
+
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Do something that differs the Activity's menu here
@@ -167,6 +171,9 @@ public class MainActivityFragment extends Fragment {
             return true;
         } else if (itemId == R.id.action_set_difficulty) {
             showSetDifficultyDialog();
+            return true;
+        } else if (itemId == R.id.action_set_phrasefile) {
+            showSetPhrasefileDialog();
             return true;
         }
         return false;
