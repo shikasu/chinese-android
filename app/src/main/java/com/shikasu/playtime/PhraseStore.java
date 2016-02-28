@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -21,6 +20,9 @@ public class PhraseStore {
     private final static String TAG = PhraseStore.class.getSimpleName();
     Map<Integer, List<Phrase>> mPhraseByLengthMap;
     private Context mContext;
+
+    private int MIN_PHRASE_LEN = 3;
+    private int MAX_PHRASE_LEN = 12;
 
     PhraseStore(Context c) {
         mPhraseByLengthMap = new HashMap<>();
@@ -61,23 +63,19 @@ public class PhraseStore {
         phrasesByLength.add(phrase);
     }
 
-    public Phrase getPhrase(int maxLength) {
-        return null;
-    }
-
-    private int MIN = 3;
-    private int MAX = 12;
-
     /**
      *
      * @return a random Phrase from the PhraseStore.
      */
     public Phrase getPhrase() {
-        Phrase phrase = null;
-        List<Phrase> phraseList = null;
+        return getPhrase(MAX_PHRASE_LEN);
+    }
+
+    public Phrase getPhrase(int maxLength) {
+        List<Phrase> phraseList;
         // FIXME potential infinite loop if mPhraseByLengthMap holds nothing
         do {
-            int i = ThreadLocalRandom.current().nextInt(MIN, MAX + 1);
+            int i = ThreadLocalRandom.current().nextInt(MIN_PHRASE_LEN, maxLength + 1);
 
             phraseList = mPhraseByLengthMap.get(i);
             Log.d(TAG, "phraseMap is null for index " + i);

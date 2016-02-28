@@ -45,6 +45,12 @@ public class StatusBar {
         return this;
     }
 
+    StatusBar difficulty(int difficulty) {
+        mDifficulty = difficulty;
+        refresh();
+        return this;
+    }
+
     StatusBar points(int points) {
         mPoints = points;
         refresh();

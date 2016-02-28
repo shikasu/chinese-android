@@ -108,7 +108,6 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                //mMediaPlayer.start();
                 if (mCharacter != null) {
                     engine.speak(chinese(), TextToSpeech.QUEUE_FLUSH, null, null);
                     // play

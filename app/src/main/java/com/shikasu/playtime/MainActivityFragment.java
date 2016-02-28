@@ -2,6 +2,7 @@ package com.shikasu.playtime;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayout;
 import android.view.LayoutInflater;
@@ -10,6 +11,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,6 +36,7 @@ public class MainActivityFragment extends Fragment {
     private GameRound mGameRound;
     private int mPointsTotal = 0;
     private int mGames = 0;
+    private int mDifficulty = 12;
 
     public MainActivityFragment() {
     }
@@ -55,7 +60,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     public void triggerNewRound() {
-        mGameRound = new GameRound(mPhraseStore.getPhrase(), 100, 20);
+        mGameRound = new GameRound(mPhraseStore.getPhrase(mDifficulty), 100, 20);
         refresh(mGameRound);
     }
 
@@ -83,7 +88,10 @@ public class MainActivityFragment extends Fragment {
     void refreshStatusBar() {
         // FIXME the activity passed will be changed to ActionBar
         StatusBar statusBar = new StatusBar((AppCompatActivity)getActivity());
-        statusBar.points(mPointsTotal).games(mGames).refresh();
+        statusBar.points(mPointsTotal)
+                .games(mGames)
+                .difficulty(mDifficulty)
+                .refresh();
     }
 
     void showPinyin(boolean show) {
@@ -123,6 +131,24 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
+    private void showSetDifficultyDialog() {
+        NumberPicker myNumberPicker = new NumberPicker(getContext());
+        myNumberPicker.setMaxValue(12);
+        myNumberPicker.setMinValue(3);
+
+        myNumberPicker.setValue(mDifficulty);
+
+        NumberPicker.OnValueChangeListener myValChangedListener = new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                mDifficulty = newVal;
+            }
+        };
+
+        myNumberPicker.setOnValueChangedListener(myValChangedListener);
+
+        new AlertDialog.Builder(getContext()).setView(myNumberPicker).show();
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -137,7 +163,10 @@ public class MainActivityFragment extends Fragment {
         else if (itemId == R.id.action_show_pinyin) {
             boolean newMode = !item.isChecked();
             item.setChecked(newMode);
-            showPinyin(newMode);
+            showPinyin(!newMode);
+            return true;
+        } else if (itemId == R.id.action_set_difficulty) {
+            showSetDifficultyDialog();
             return true;
         }
         return false;
