@@ -3,6 +3,7 @@ package com.shikasu.playtime;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,6 +31,7 @@ public class MainActivityFragment extends Fragment {
     static MainActivityFragment sFragment;
 
     private GameRound mGameRound;
+    private int pointsTotal = 0;
 
     public MainActivityFragment() {
     }
@@ -82,11 +84,19 @@ public class MainActivityFragment extends Fragment {
             if (mGameRound.state().lengthRemaining() == 0) {
                 resetAllTiles();
                 triggerNewRound();
+                pointsTotal += mGameRound.state().points();
+                refreshStatusBar();
             }
         } else {
-            resetAllTiles();
+            resetAllTilesColor();
         }
         return matched;
+    }
+
+    void refreshStatusBar() {
+        // FIXME the activity passed will be changed to ActionBar
+        StatusBar statusBar = new StatusBar((AppCompatActivity)getActivity());
+        statusBar.points(pointsTotal).refresh();
     }
 
     void resetAllTiles() {
@@ -95,6 +105,14 @@ public class MainActivityFragment extends Fragment {
             PlayItem child = (PlayItem) mGridLayout.getChildAt(i);
             child.setBackgroundColor(Color.GRAY);
             child.setCharacter(null);
+        }
+    }
+
+    void resetAllTilesColor() {
+        int count = mGridLayout.getChildCount();
+        for(int i = 0 ; i < count ; i++) {
+            PlayItem child = (PlayItem) mGridLayout.getChildAt(i);
+            child.setBackgroundColor(Color.GRAY);
         }
     }
 
@@ -109,6 +127,7 @@ public class MainActivityFragment extends Fragment {
             playItem.setCharacter(shuffledPhrase.get(i));
         }
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
