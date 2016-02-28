@@ -1,25 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
-    <group android:id="@+id/edit_group" android:checkableBehavior="single">
-        <item android:id="@+id/action_editmode_none"
-              android:title="@string/action_editmode_none"
-              android:checked="true"
-              android:orderInCategory="100" app:showAsAction="never"
-            />
-        <item android:id="@+id/action_editmode_background_color"
-              android:title="@string/action_editmode_background_color"
-              android:orderInCategory="110" app:showAsAction="never"
-            />
-        <item android:id="@+id/action_editmode_background_image"
-              android:title="@string/action_editmode_background_image"
-              android:orderInCategory="120" app:showAsAction="never"
-            />
-        <item android:id="@+id/action_editmode_text"
-              android:title="@string/action_editmode_text"
-              android:orderInCategory="130" app:showAsAction="never"
-            />
-    </group>
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    <item android:id="@+id/action_settings"
+          android:title="@string/action_settings"
+          android:orderInCategory="100"
+          app:showAsAction="never" />
+
+    <item android:id="@+id/action_show_pinyin"
+          android:title="@string/action_show_pinyin"
+          android:orderInCategory="100"
+          app:showAsAction="never"
+          android:checkable="true"
+        />
 </menu>

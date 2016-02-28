@@ -44,14 +44,6 @@ public class MainActivityFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    void setEditModeForAllItems(int editMode) {
-        int count = mGridLayout.getChildCount();
-        for(int i = 0 ; i <count ; i++){
-            PlayItem child = (PlayItem) mGridLayout.getChildAt(i);
-            child.setEditMode(editMode);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -140,13 +132,14 @@ public class MainActivityFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int editMode = item.getItemId();
-        if (editMode == R.id.action_settings) return false;
-        else {
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_settings) return false;
+        else if (itemId == R.id.action_show_pinyin) {
             boolean newMode = !item.isChecked();
-            setEditModeForAllItems(editMode);
             item.setChecked(newMode);
+            showPinyin(newMode);
             return true;
         }
+        return false;
     }
 }

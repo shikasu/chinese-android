@@ -3,11 +3,6 @@ package com.shikasu.playtime;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AlertDialog;
@@ -27,8 +22,6 @@ import java.util.Locale;
  */
 public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListener {
 
-    private int mEditMode; //change to int tracking action_editmode_* TODO
-    private MediaPlayer mMediaPlayer;
     private TextToSpeech engine;
 
     private TextView mChineseTextView;
@@ -94,10 +87,12 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
     }
 
     void showPinyin(boolean show) {
-        if (show) {
-            pinyin("");
-        } else {
-            pinyin(mCharacter.pinyin());
+        if (mCharacter != null) {
+            if (show) {
+                pinyin("");
+            } else {
+                pinyin(mCharacter.pinyin());
+            }
         }
     }
 
@@ -110,40 +105,14 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
     void init() {
         inflateAndLoadElements();
         engine = new TextToSpeech(getContext(), this);
-        setEditMode(R.id.action_editmode_none);
-        int mSoundId = R.raw.ak47;
-        mMediaPlayer = MediaPlayer.create(this.getContext(), mSoundId);
-        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                //mp.release();
-            }
-        });
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                switch (mEditMode) {
-                    case R.id.action_editmode_background_color:
-                    case R.id.action_editmode_background_image:
-                        Drawable drawable = v.getBackground();
-                        int initialColor = Color.BLACK;
-                        if (drawable instanceof BitmapDrawable) {
-                        } else {
-                            ColorDrawable colorDrawable = (ColorDrawable) v.getBackground();
-                            initialColor = colorDrawable.getColor();
-                        }
-                        break;
-                    case R.id.action_editmode_none:
-                        //mMediaPlayer.start();
-                        if (mCharacter == null) break;
-                        engine.speak(chinese(), TextToSpeech.QUEUE_FLUSH, null, null);
-                        // play
-                        boolean matched = MainActivityFragment.sFragment.play(PlayItem.this);
-                        break;
-                    case R.id.action_editmode_text:
-                        showChangeTextDialog();
-                    default:
-                        break;
+                //mMediaPlayer.start();
+                if (mCharacter != null) {
+                    engine.speak(chinese(), TextToSpeech.QUEUE_FLUSH, null, null);
+                    // play
+                    MainActivityFragment.sFragment.play(PlayItem.this);
                 }
             }
         });
@@ -204,13 +173,6 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
         builder.show();
     }
 
-    public int editMode() {
-        return mEditMode;
-    }
-
-    public void setEditMode(int editMode) {
-        mEditMode = editMode;
-    }
 
     /**
      * Called to signal the completion of the TextToSpeech engine initialization.
