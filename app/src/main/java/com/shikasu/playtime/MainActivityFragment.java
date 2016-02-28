@@ -11,9 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -60,7 +58,12 @@ public class MainActivityFragment extends Fragment {
     }
 
     public void triggerNewRound() {
-        mGameRound = new GameRound(mPhraseStore.getPhrase(mDifficulty), 100, 20);
+        // FIXME: this is a short term hack for multi phrasefile support. (This means we loaded poem.txt)
+        if (mPhraseStore.mPhraseList != null && mPhraseStore.mPhraseList.size() > 0) {
+            mGameRound = new GameRound(mPhraseStore.getPhrase(), 100, 10);
+        } else {
+            mGameRound = new GameRound(mPhraseStore.getRandomPhrase(mDifficulty), 100, 20);
+        }
         refresh(mGameRound);
     }
 
@@ -133,8 +136,8 @@ public class MainActivityFragment extends Fragment {
 
     private void showSetDifficultyDialog() {
         NumberPicker myNumberPicker = new NumberPicker(getContext());
-        myNumberPicker.setMaxValue(PhraseStore.MAX_PHRASE_LEN);
         myNumberPicker.setMinValue(PhraseStore.MIN_PHRASE_LEN);
+        myNumberPicker.setMaxValue(PhraseStore.MAX_PHRASE_LEN);
 
         myNumberPicker.setValue(mDifficulty);
 
@@ -151,7 +154,25 @@ public class MainActivityFragment extends Fragment {
     }
 
     void showSetPhrasefileDialog() {
+        NumberPicker myNumberPicker = new NumberPicker(getContext());
+        myNumberPicker.setMinValue(0);
+        myNumberPicker.setMaxValue(1);
 
+        final String[] values = new String[]{"phrases.txt", "poem.txt"};
+        myNumberPicker.setDisplayedValues(values);
+
+        NumberPicker.OnValueChangeListener myValChangedListener = new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                // FIXME # this is totally a hax, the way the values are passed
+                // FIXME # and the creation of a huge obj out of a scroll change ;D
+                mPhraseStore = new PhraseStore(getContext(), newVal, values[newVal]);
+            }
+        };
+
+        myNumberPicker.setOnValueChangedListener(myValChangedListener);
+
+        new AlertDialog.Builder(getContext()).setView(myNumberPicker).show();
     }
 
     @Override

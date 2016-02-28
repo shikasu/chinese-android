@@ -18,16 +18,28 @@ import java.util.concurrent.ThreadLocalRandom;
 public class PhraseStore {
 
     private final static String TAG = PhraseStore.class.getSimpleName();
+
     Map<Integer, List<Phrase>> mPhraseByLengthMap;
+    List<Phrase> mPhraseList;
     private Context mContext;
+
+    public static final int STRATEGY_MAPLIST = 0;
+    public static final int STRATEGY_LIST = 1;
+
+    private int mStrategy = STRATEGY_MAPLIST;
+    private int mCurrentIndex;
 
     public static final int MIN_PHRASE_LEN = 2;
     public static final int MAX_PHRASE_LEN = 12;
 
-    PhraseStore(Context c) {
+    PhraseStore(Context c) { this(c, STRATEGY_MAPLIST); }
+    PhraseStore(Context c, int strategy) { this(c, strategy, "phrases.txt"); }
+    PhraseStore(Context c, int strategy, String filename) {
+        mStrategy = strategy;
         mPhraseByLengthMap = new HashMap<>();
+        mPhraseList = new ArrayList<>();
         mContext = c;
-        loadFromAssets("phrases.txt");
+        loadFromAssets(filename);
     }
 
     private void loadFromAssets(String filename) {
@@ -55,30 +67,47 @@ public class PhraseStore {
     }
 
     void store(Phrase phrase) {
-        List<Phrase> phrasesByLength = mPhraseByLengthMap.get(phrase.size());
-        if (phrasesByLength == null) {
-            phrasesByLength = new ArrayList<>();
-            mPhraseByLengthMap.put(phrase.size(), phrasesByLength);
+        if (mStrategy == STRATEGY_MAPLIST) {
+            List<Phrase> phrasesByLength = mPhraseByLengthMap.get(phrase.size());
+            if (phrasesByLength == null) {
+                phrasesByLength = new ArrayList<>();
+                mPhraseByLengthMap.put(phrase.size(), phrasesByLength);
+            }
+            phrasesByLength.add(phrase);
+        } else if (mStrategy == STRATEGY_LIST) {
+            mPhraseList.add(phrase);
         }
-        phrasesByLength.add(phrase);
+    }
+
+    public Phrase getPhrase() {
+        Phrase ret = null;
+        if (mPhraseList != null && mPhraseList.size() > 0) {
+            ret = mPhraseList.get(mCurrentIndex++);
+            if (mCurrentIndex == mPhraseList.size()) mCurrentIndex = 0;
+        }
+        return ret;
     }
 
     /**
      *
      * @return a random Phrase from the PhraseStore.
      */
-    public Phrase getPhrase() {
-        return getPhrase(MAX_PHRASE_LEN);
+    public Phrase getRandomPhrase() {
+        return getRandomPhrase(MAX_PHRASE_LEN);
     }
 
-    public Phrase getPhrase(int maxLength) {
-        List<Phrase> phraseList;
+    public Phrase getRandomPhrase(int maxLength) {
+        List<Phrase> phraseList = null;
         // FIXME potential infinite loop if mPhraseByLengthMap holds nothing
         do {
-            int i = ThreadLocalRandom.current().nextInt(MIN_PHRASE_LEN, maxLength + 1);
+            if (mStrategy == STRATEGY_MAPLIST) {
+                int i = ThreadLocalRandom.current().nextInt(MIN_PHRASE_LEN, maxLength + 1);
 
-            phraseList = mPhraseByLengthMap.get(i);
-            Log.d(TAG, "phraseMap is null for index " + i);
+                phraseList = mPhraseByLengthMap.get(i);
+                Log.d(TAG, "phraseMap is null for index " + i);
+            } else if (mStrategy == STRATEGY_LIST) {
+                phraseList = mPhraseList;
+            }
         } while (phraseList == null);
 
         int j = ThreadLocalRandom.current().nextInt(0, phraseList.size());
