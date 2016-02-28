@@ -1,2 +1,15 @@
 我是法国人,,I am French
 我不工作,Wǒ bù gōngzuò,I do not work
+我现在不工作,Wǒ xiànzài bù gōngzuò,I do not work now
+他最喜欢冬天去曼谷,,His favorite winter destination in Bangkok
+我六点起床了,Wǒ liù diǎn qǐchuángle,I got up at six
+现在几点几分？,Xiànzài jǐ diǎn jǐ fēn?,What time is it now?
+春风轻轻地吻上了我的脸,Chūnfēng qīng qīng de wěn shàngle wǒ de liǎn,The spring breeze gently kissed my face
+小雨轻轻地打在我的脸上,Xiǎoyǔ qīng qīng de dǎ zài wǒ de liǎn shàng,The rain gently hits my face.
+很凉快,Hěn liángkuai,Cool weather
+他有一对小眼睛,Tā yǒuyī duì xiǎo yǎnjīng,He has small pair of eyes
+他有很高的鼻子,Tā yǒu hěn gāo de bízi,He has a large nose
+他的鼻子很高,Tā de bízi hěn gāo,His nose is large
+你怎么样？,Nǐ zěnme yàng?,How are you?
+天气怎么样？,Tiānqì zěnme yàng?,How is the weather?
+你的工作怎么样？,Nǐ de gōngzuò zěnme yàng?,How is your job going on?
