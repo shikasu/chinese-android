@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -83,9 +84,12 @@ public class MainActivityFragment extends Fragment {
             playItem.setPushed(true);
             if (mGameRound.state().lengthRemaining() == 0) {
                 resetAllTiles();
-                triggerNewRound();
                 pointsTotal += mGameRound.state().points();
                 refreshStatusBar();
+                String toToast = mGameRound.phrase().chinese() + " - " +
+                        mGameRound.phrase().english();
+                Toast.makeText(getContext(), toToast, Toast.LENGTH_LONG).show();
+                triggerNewRound();
             }
         } else {
             resetAllTilesColor();
