@@ -13,3 +13,20 @@
 你怎么样？,Nǐ zěnme yàng?,How are you?
 天气怎么样？,Tiānqì zěnme yàng?,How is the weather?
 你的工作怎么样？,Nǐ de gōngzuò zěnme yàng?,How is your job going on?
+三分钟,sān fēnzhōng,Three minutes
+早上好,Zǎoshàng hǎo, Good morning
+下午好,Xiàwǔ hǎo,Good afternoon
+晚上好,Wǎnshàng hǎo,Good evening
+你好吗？,Nǐhǎo ma？,How are you?
+再见,Zàijiàn,Goodbye
+是的,Shì de,yes
+星期一,xīngqī yī,Monday
+星期二,xīngqī èr,Tuesday
+星期三,xīngqī sān,Wednesday
+星期四,xīngqī sì,Thursday
+星期五,xīngqī wǔ,Friday
+星期六,xīngqī liù,Saturday
+星期天,xīngqītiān,Sunday
+咖啡,kāfēi,coffee
+工程师,gōngchéngshī,engineer
+程序设计员,chéngxù shèjìyuán,programmer

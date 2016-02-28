@@ -21,8 +21,8 @@ public class PhraseStore {
     Map<Integer, List<Phrase>> mPhraseByLengthMap;
     private Context mContext;
 
-    private int MIN_PHRASE_LEN = 3;
-    private int MAX_PHRASE_LEN = 12;
+    public static final int MIN_PHRASE_LEN = 2;
+    public static final int MAX_PHRASE_LEN = 12;
 
     PhraseStore(Context c) {
         mPhraseByLengthMap = new HashMap<>();

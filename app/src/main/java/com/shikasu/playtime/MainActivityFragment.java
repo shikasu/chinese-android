@@ -36,7 +36,7 @@ public class MainActivityFragment extends Fragment {
     private GameRound mGameRound;
     private int mPointsTotal = 0;
     private int mGames = 0;
-    private int mDifficulty = 12;
+    private int mDifficulty = PhraseStore.MAX_PHRASE_LEN;
 
     public MainActivityFragment() {
     }
@@ -133,8 +133,8 @@ public class MainActivityFragment extends Fragment {
 
     private void showSetDifficultyDialog() {
         NumberPicker myNumberPicker = new NumberPicker(getContext());
-        myNumberPicker.setMaxValue(12);
-        myNumberPicker.setMinValue(3);
+        myNumberPicker.setMaxValue(PhraseStore.MAX_PHRASE_LEN);
+        myNumberPicker.setMinValue(PhraseStore.MIN_PHRASE_LEN);
 
         myNumberPicker.setValue(mDifficulty);
 
