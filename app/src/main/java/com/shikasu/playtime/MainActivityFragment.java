@@ -53,22 +53,12 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
-    void setRandomColorBackgroundForAllItems() {
-        int count = mGridLayout.getChildCount();
-        for(int i = 0 ; i <count ; i++){
-            PlayItem child = (PlayItem) mGridLayout.getChildAt(i);
-            Random rnd = new Random();
-            int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-            child.setBackgroundColor(color);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         mGridLayout = (GridLayout) view.findViewById(R.id.gridLayout);
-        setRandomColorBackgroundForAllItems();
+        resetAllTilesColor();
         triggerNewRound();
         return view;
     }
