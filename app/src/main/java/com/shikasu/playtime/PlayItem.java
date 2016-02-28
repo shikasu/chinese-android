@@ -27,6 +27,7 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
     private TextView mChineseTextView;
     private TextView mPinyinTextView;
 
+    private boolean mShowPinyin = true;
     private Character mCharacter;
 
     private static String TAG = PlayItem.class.getSimpleName();
@@ -70,7 +71,11 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
 
     private void pinyin(String pinyin) {
         if (mPinyinTextView != null) {
-            mPinyinTextView.setText(pinyin);
+            if (mShowPinyin) {
+                mPinyinTextView.setText(pinyin);
+            } else {
+                mPinyinTextView.setText("");
+            }
         }
     }
 
@@ -87,11 +92,12 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
     }
 
     void showPinyin(boolean show) {
+        mShowPinyin = show;
         if (mCharacter != null) {
             if (show) {
-                pinyin("");
-            } else {
                 pinyin(mCharacter.pinyin());
+            } else {
+                pinyin("");
             }
         }
     }

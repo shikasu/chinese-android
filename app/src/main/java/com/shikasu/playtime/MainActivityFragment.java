@@ -36,7 +36,7 @@ public class MainActivityFragment extends Fragment {
     private GameRound mGameRound;
     private int mPointsTotal = 0;
     private int mGames = 0;
-    private int mDifficulty = PhraseStore.MAX_PHRASE_LEN;
+    private int mDifficulty = PhraseStore.MIN_PHRASE_LEN;
 
     public MainActivityFragment() {
     }
@@ -75,7 +75,7 @@ public class MainActivityFragment extends Fragment {
                 refreshStatusBar();
                 String toToast = mGameRound.phrase().chinese() + " - " +
                         mGameRound.phrase().english();
-                Toast.makeText(getContext(), toToast, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), toToast, Toast.LENGTH_SHORT).show();
 
                 triggerNewRound();
             }
@@ -163,7 +163,7 @@ public class MainActivityFragment extends Fragment {
         else if (itemId == R.id.action_show_pinyin) {
             boolean newMode = !item.isChecked();
             item.setChecked(newMode);
-            showPinyin(!newMode);
+            showPinyin(newMode);
             return true;
         } else if (itemId == R.id.action_set_difficulty) {
             showSetDifficultyDialog();
