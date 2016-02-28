@@ -15,9 +15,10 @@ public class StatusBar {
     private int mMinutes;
     private int mSeconds;
     private int mDifficulty;
+    private int mGames;
     private AppCompatActivity mActivity;
 
-    private final static String FORMAT = "diff %d - points: %d - time %d:%d";
+    private final static String FORMAT = "diff %d - points: %d - games: %d";
 
     // FIXME depend on the ActionBar itself
     StatusBar(AppCompatActivity a) {
@@ -27,7 +28,7 @@ public class StatusBar {
 
     void refresh() {
         ActionBar bar = mActivity.getSupportActionBar();
-        String title = String.format(FORMAT, mDifficulty, mPoints, mMinutes, mSeconds);
+        String title = String.format(FORMAT, mDifficulty, mPoints, mGames);
         if (bar != null) {
             Log.d(TAG, "Setting actionbar title to" + title);
             bar.setTitle(title);
@@ -37,6 +38,12 @@ public class StatusBar {
     }
 
     // Action SETTERS:
+
+    StatusBar games(int games) {
+        mGames = games;
+        refresh();
+        return this;
+    }
 
     StatusBar points(int points) {
         mPoints = points;

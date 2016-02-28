@@ -30,7 +30,8 @@ public class MainActivityFragment extends Fragment {
     static MainActivityFragment sFragment;
 
     private GameRound mGameRound;
-    private int pointsTotal = 0;
+    private int mPointsTotal = 0;
+    private int mGames = 0;
 
     public MainActivityFragment() {
     }
@@ -72,11 +73,13 @@ public class MainActivityFragment extends Fragment {
             playItem.setPushed(true);
             if (mGameRound.state().lengthRemaining() == 0) {
                 resetAllTiles();
-                pointsTotal += mGameRound.state().points();
+                mGames += 1;
+                mPointsTotal += mGameRound.state().points();
                 refreshStatusBar();
                 String toToast = mGameRound.phrase().chinese() + " - " +
                         mGameRound.phrase().english();
                 Toast.makeText(getContext(), toToast, Toast.LENGTH_LONG).show();
+
                 triggerNewRound();
             }
         } else {
@@ -88,7 +91,7 @@ public class MainActivityFragment extends Fragment {
     void refreshStatusBar() {
         // FIXME the activity passed will be changed to ActionBar
         StatusBar statusBar = new StatusBar((AppCompatActivity)getActivity());
-        statusBar.points(pointsTotal).refresh();
+        statusBar.points(mPointsTotal).games(mGames).refresh();
     }
 
     void resetAllTiles() {
