@@ -143,9 +143,13 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
 
     void setPushed(boolean pushed) {
         if (pushed) {
-            setBackgroundColor(Color.GREEN);
+            setBackgroundColor(getResources().getColor(R.color.tile_pushed_bg));
+            mChineseTextView.setTextColor(getResources().getColor(R.color.tile_pushed_text));
+            mPinyinTextView.setTextColor(getResources().getColor(R.color.tile_pushed_text));
         } else {
-            setBackgroundColor(Color.GRAY);
+            setBackgroundColor(getResources().getColor(R.color.tile_not_pushed_bg));
+            mChineseTextView.setTextColor(getResources().getColor(R.color.tile_not_pushed_text));
+            mPinyinTextView.setTextColor(getResources().getColor(R.color.tile_not_pushed_text));
         }
     }
 

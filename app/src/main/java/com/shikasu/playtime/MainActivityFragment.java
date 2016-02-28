@@ -1,6 +1,5 @@
 package com.shikasu.playtime;
 
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -97,7 +95,7 @@ public class MainActivityFragment extends Fragment {
         int count = mGridLayout.getChildCount();
         for(int i = 0 ; i < count ; i++) {
             PlayItem child = (PlayItem) mGridLayout.getChildAt(i);
-            child.setBackgroundColor(Color.GRAY);
+            child.setPushed(false);
             child.setCharacter(null);
         }
     }
@@ -106,7 +104,7 @@ public class MainActivityFragment extends Fragment {
         int count = mGridLayout.getChildCount();
         for(int i = 0 ; i < count ; i++) {
             PlayItem child = (PlayItem) mGridLayout.getChildAt(i);
-            child.setBackgroundColor(Color.GRAY);
+            child.setPushed(false);
         }
     }
 
