@@ -84,8 +84,13 @@ public class PlayItem extends RelativeLayout implements TextToSpeech.OnInitListe
     Character character() { return mCharacter; }
     void setCharacter(Character c) {
         mCharacter = c;
-        chinese(c.chinese());
-        pinyin(c.pinyin());
+        if (c == null) {
+            chinese("");
+            pinyin("");
+        } else {
+            chinese(c.chinese());
+            pinyin(c.pinyin());
+        }
     }
 
     void inflateAndLoadElements() {

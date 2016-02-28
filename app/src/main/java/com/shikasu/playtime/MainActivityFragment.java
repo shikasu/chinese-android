@@ -80,20 +80,21 @@ public class MainActivityFragment extends Fragment {
         if (matched) {
             playItem.setPushed(true);
             if (mGameRound.state().lengthRemaining() == 0) {
-                resetAllTilesColor();
+                resetAllTiles();
                 triggerNewRound();
             }
         } else {
-            resetAllTilesColor();
+            resetAllTiles();
         }
         return matched;
     }
 
-    void resetAllTilesColor() {
+    void resetAllTiles() {
         int count = mGridLayout.getChildCount();
         for(int i = 0 ; i < count ; i++) {
             PlayItem child = (PlayItem) mGridLayout.getChildAt(i);
             child.setBackgroundColor(Color.GRAY);
+            child.setCharacter(null);
         }
     }
 
